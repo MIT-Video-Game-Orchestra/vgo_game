@@ -1,8 +1,14 @@
 # VGO GAME
 
+## Preinstall
+
+1. Install Node `https://nodejs.org/en/download/`
+2. Install yarn `https://classic.yarnpkg.com/en/docs/install/`
+
+
 ## Installation
 1. Clone/download repo
-2. `yarn install` (or `npm install` for npm)
+2. `yarn install`
 
 ## Usage
 **Development**
