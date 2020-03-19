@@ -1,4 +1,4 @@
-// production config
+``// production config
 const merge = require('webpack-merge');
 const {resolve} = require('path');
 
@@ -10,7 +10,7 @@ module.exports = merge(commonConfig, {
   output: {
     filename: 'js/bundle.[hash].min.js',
     path: resolve(__dirname, '../../dist'),
-    publicPath: '/',
+    publicPath: '/vgo_game', //so that it works with github pages
   },
   devtool: 'source-map',
   plugins: [],
