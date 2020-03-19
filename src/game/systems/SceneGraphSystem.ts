@@ -30,7 +30,7 @@ export class SceneGraphSystem extends System{
         });
         this.renderer.setSize( window.innerWidth, window.innerHeight );
 
-        this.camera.position.z = 5;
+        this.camera.position.z = 10;
     }
 
     objectIdMap = new Map<string, Object3D>();
