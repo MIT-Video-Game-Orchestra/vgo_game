@@ -1,12 +1,19 @@
 $bg-color: yellow;
 $border-color: red;
 
-.app {
-  font-family: helvetica, arial, sans-serif;
-  padding: 2em;
-  border: 5px solid $border-color;
+body{
+  margin: 0;
 
-  p {
-    background-color: $bg-color;
-  }
+}
+
+#root{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.full-screen-game{
+  width: 100%;
+  height: 100%;
 }

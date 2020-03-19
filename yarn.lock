@@ -3408,6 +3408,11 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
+ecsy@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/ecsy/-/ecsy-0.2.3.tgz#82bc7c0c2235a2afe62317048eea9c91c96858ee"
+  integrity sha512-OAQap3oGQhONBD6IaM0VWXLk8IwEkPu5zUWrW8oSNMfh3jzN4qzZJlDv24QlLgWnK6cYl3hUCn6yOdxRv2Ua3w==
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -8913,6 +8918,11 @@ test-exclude@^6.0.0:
     "@istanbuljs/schema" "^0.1.2"
     glob "^7.1.4"
     minimatch "^3.0.4"
+
+three@^0.114.0:
+  version "0.114.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.114.0.tgz#754d08467a950ddeef06a0c645a1302b130e455a"
+  integrity sha512-3av45FxJeqYm7Rl02dfGBoqTaf2a934oUB4zMNrN8xjmASoSGeeykYoAr35+UntTdJDY/STw6CY3KuXFBWETig==
 
 throat@^5.0.0:
   version "5.0.0"
