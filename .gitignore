@@ -1,3 +1,4 @@
+dist/
 
 #MAC
 # General
@@ -216,4 +217,4 @@ web_modules/
 .yarn/cache
 .yarn/unplugged
 .yarn/build-state.yml
-.pnp.*
+.pnp.*dist/
