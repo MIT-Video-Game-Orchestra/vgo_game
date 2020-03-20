@@ -6,7 +6,7 @@ export class CameraComponent extends Component{
     near: number;
     far: number;
     layers: number;
-    handleResize: boolean;
+    handleResize: boolean = true;
     reset(){
         this.fov = 45;
         this.aspect = 1;
