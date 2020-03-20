@@ -3,26 +3,34 @@ import keyDown = Simulate.keyDown;
 
 export class KeyboardInputManager {
 
-    keydowns: Map<string, () => any>;
-    keyups: Map<string, () => any>;
+    keydowns: Map<string, () => any> = new Map();
+    keyups: Map<string, () => any> = new Map();
 
+
+    private _keydownCallback = (e) => {
+        this.onKeyDown(e);
+    };
+    private _keyupCallback = (e) => {
+        this.onKeyUp(e);
+    };
 
     constructor(){
-        document.addEventListener('keydown', (e) => {
-            this.onKeyDown(e);
-        });
-
-        document.addEventListener('keyup', (e) => {
-            this.onKeyUp(e);
-        })
+        document.addEventListener('keydown', this._keydownCallback);
+        document.addEventListener('keyup', this._keyupCallback)
     }
 
     onKeyDown(e: KeyboardEvent){
-        console.log(e);
+        let f = this.keydowns.get(e.key);
+        if(f){
+            f();
+        }
     }
 
     onKeyUp(e: KeyboardEvent){
-        console.log(e);
+        let f = this.keyups.get(e.key);
+        if(f){
+            f();
+        }
     }
 
     registerKeyDown( key: string, f: () => any){
@@ -32,7 +40,10 @@ export class KeyboardInputManager {
         this.keyups.set(key, f);
     }
 
+    destroy(){
+        document.removeEventListener('keydown', this._keydownCallback);
+        document.removeEventListener('kyup', this._keyupCallback);
 
-
+    }
 
 }

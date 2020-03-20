@@ -12,7 +12,7 @@ import {MaterialComponent} from "../components/MaterialComponent";
 import {GeometryComponent} from "../components/GeometryComponent";
 import {TransformComponent} from "../components/TransformComponent";
 import {CameraComponent} from "../components/CameraComponent";
-import {CubeControllerComponent} from "../components/CubeControllerComponent";
+import {CubeControllerComponent, Keybindings} from "../components/CubeControllerComponent";
 import {ParentComponent} from "../components/ParentComponent";
 import {Color, Vector3} from "three";
 import {ActiveComponent} from "../components/ActiveComponent";
@@ -24,9 +24,9 @@ export function CubeWorld() {
         .registerSystem(CameraSystem)
         .registerSystem(SceneSystem)
         .registerSystem(SceneGraphSystem)
+        .registerSystem(CubeControllerSystem)
         .registerSystem(TransformSystem)
         .registerSystem(WebGLRendererSystem)
-        .registerSystem(CubeControllerSystem)
     world
         .registerComponent(RendererComponent)
         .registerComponent(WebGLRendererContextComponent)
@@ -76,7 +76,17 @@ export function CubeWorld() {
         })
         .addComponent(ParentComponent, {
             parentObject: scene
-        });
+        })
+        .addComponent(CubeControllerComponent, {
+            keybindings: {
+                down: 'ArrowDown',
+                left: 'ArrowLeft',
+                up: 'ArrowUp',
+                right: 'ArrowRight',
+            }
+
+        })
+    ;
 
     let p2 = world.createEntity()
         .addComponent(Object3DComponent)
@@ -89,6 +99,17 @@ export function CubeWorld() {
         })
         .addComponent(ParentComponent, {
             parentObject: scene
-        });
+        })
+        .addComponent(CubeControllerComponent, {
+            keybindings: {
+                down: 's',
+                left: 'a',
+                up: 'w',
+                right: 'd',
+            }
+        })
+
+
+    ;
     return world;
 }
