@@ -17,7 +17,7 @@ import {Object3DComponent} from "./components/Object3DComponent";
 import {TransformComponent} from "./components/TransformComponent";
 
 export class GameEntry {
-
+    _disposed = false;
     init(canvas: HTMLCanvasElement){
 
         console.log("INIT GAME");
@@ -59,7 +59,9 @@ export class GameEntry {
         let clock = new Clock();
 
         //setup main loop
-        let animate = function () {
+        let animate = () => {
+            if(this._disposed) return;
+
             requestAnimationFrame( animate );
 
             var delta = clock.getDelta();
@@ -73,7 +75,8 @@ export class GameEntry {
     }
 
     dispose(){
-        //TODO
+        console.log("DISPOSING GAME");
+        this._disposed = true;
     }
 
 }
