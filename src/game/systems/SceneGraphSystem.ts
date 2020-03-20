@@ -1,4 +1,4 @@
-import {Entity, System} from "ecsy";
+import {Component, Entity, Not, System} from "ecsy";
 import {Object3DComponent} from "../components/Object3DComponent";
 import {Geometries, GeometryComponent} from "../components/GeometryComponent";
 import {TransformComponent} from "../components/TransformComponent";
@@ -12,33 +12,27 @@ import {
     Scene,
     SphereBufferGeometry, WebGLRenderer
 } from "three";
+import {ParentComponent} from "../components/ParentComponent";
+
+export class SceneGraphObject3DComponent extends Component{
+
+    object3d: Object3D;
+
+
+    reset(){
+        this.object3d = null;
+    }
+
+}
+
 
 export class SceneGraphSystem extends System{
 
-
-    scene = new Scene();
-
     static CANVAS: HTMLCanvasElement;
 
-    //TODO: extract these out into their own systems
-    camera = new PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-    renderer: WebGLRenderer;
-    init(){
-        this.renderer = new WebGLRenderer({
-            canvas: SceneGraphSystem.CANVAS, //HACK: remove later
-            antialias: true
-        });
-        this.renderer.setSize( window.innerWidth, window.innerHeight );
-
-        this.camera.position.z = 10;
-    }
-
-    objectIdMap = new Map<string, Object3D>();
 
     execute(delta: number, time: number): void {
-        let meshesQuery = this.queries.meshes;
-
-        meshesQuery.added.forEach(entity => {
+        this.queries.uninstantiatedMeshes.added.forEach(entity => {
             let object3dComponent = entity.getComponent(Object3DComponent);
             let id = object3dComponent.id;
 
@@ -66,29 +60,46 @@ export class SceneGraphSystem extends System{
             object3d.rotation.copy(transformComponent.rotation);
             object3d.scale.copy(transformComponent.scale);
 
-            this.objectIdMap.set(id, object3d);
-            this.scene.add(object3d);
+            entity.addComponent(SceneGraphObject3DComponent, {
+                object3d: object3d
+            });
         });
 
-        meshesQuery.removed.forEach(entity => {
-            let object3dComponent = entity.getComponent(Object3DComponent);
-            let id = object3dComponent.id;
-            let object3d = this.objectIdMap.get(id);
-            this.objectIdMap.delete(id);
-            this.scene.remove(object3d);
+        this.queries.meshes.removed.forEach(entity => {
+            let object3dComponent = entity.getComponent(SceneGraphObject3DComponent).object3d;
         });
 
-        //TODO: separate
-        this.renderer.render(this.scene, this.camera);
 
+        this.queries.meshesNeedToBeParented.added.forEach(entity => {
+           let obj3d = entity.getComponent(SceneGraphObject3DComponent).object3d;
+           let parentObject = entity.getComponent(ParentComponent).parentObject.getComponent(SceneGraphObject3DComponent);
+           console.assert(parentObject, "parent object is null");
+
+           parentObject.object3d.add(obj3d);
+        });
 
     }
 
+
     static queries = {
-        meshes: {
-            components: [Object3DComponent, GeometryComponent, MaterialComponent, TransformComponent],
+        uninstantiatedMeshes: {
+            components: [Object3DComponent, Not(SceneGraphObject3DComponent), GeometryComponent, MaterialComponent, TransformComponent],
             listen: {
                 added: true,
+                removed: true,
+            }
+        },
+
+        meshesNeedToBeParented: {
+            components: [Object3DComponent, SceneGraphObject3DComponent, ParentComponent],
+            listen: {
+                added: true,
+                removed: true
+            }
+        },
+        meshes: {
+            components: [Object3DComponent, SceneGraphObject3DComponent, GeometryComponent, MaterialComponent, TransformComponent],
+            listen: {
                 removed: true,
             }
         },

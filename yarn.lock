@@ -3408,7 +3408,15 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-ecsy@^0.2.3:
+"ecsy-three@https://github.com/MIT-Video-Game-Orchestra/ecsy-three.git":
+  version "0.0.2"
+  resolved "https://github.com/MIT-Video-Game-Orchestra/ecsy-three.git#4090c03c4fe39eeea088125bf72e40dc62f3c187"
+  dependencies:
+    ecsy "^0.2.2"
+    three "^0.113.2"
+    troika-3d-text "^0.17.0"
+
+ecsy@^0.2.2, ecsy@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/ecsy/-/ecsy-0.2.3.tgz#82bc7c0c2235a2afe62317048eea9c91c96858ee"
   integrity sha512-OAQap3oGQhONBD6IaM0VWXLk8IwEkPu5zUWrW8oSNMfh3jzN4qzZJlDv24QlLgWnK6cYl3hUCn6yOdxRv2Ua3w==
@@ -9008,6 +9016,11 @@ test-exclude@^6.0.0:
     glob "^7.1.4"
     minimatch "^3.0.4"
 
+three@^0.113.2:
+  version "0.113.2"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.113.2.tgz#04791d491fe4359330f9dbe7b767db18bfb35d67"
+  integrity sha512-x3vrKW41/UtbWbWduWKGlfIc043SvHWr3YltehYq+UGb9YglQ2oztNGvl2eut05JtNSmP11Mh3t6Xak5/0e+Fg==
+
 three@^0.114.0:
   version "0.114.0"
   resolved "https://registry.yarnpkg.com/three/-/three-0.114.0.tgz#754d08467a950ddeef06a0c645a1302b130e455a"
@@ -9163,6 +9176,46 @@ trim-repeated@^1.0.0:
   integrity sha1-42RqLqTokTEr9+rObPsFOAvAHCE=
   dependencies:
     escape-string-regexp "^1.0.2"
+
+troika-3d-text@^0.17.0:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/troika-3d-text/-/troika-3d-text-0.17.1.tgz#b1b5d9090fb2423b9d381876a277091c5ddfd31a"
+  integrity sha512-HdGv5vC/1mCUMiSLifs/woS0PLwu5AMDy7N1iMmcV6g8BY5fu3qJHytHAgFBTE/1ZwiKN6uSn9vVz90zhNciwA==
+  dependencies:
+    troika-3d "^0.17.1"
+    troika-three-utils "^0.17.1"
+    troika-worker-utils "^0.17.1"
+
+troika-3d@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/troika-3d/-/troika-3d-0.17.1.tgz#40be12a1bde1985a26b465c6e7cf443bd412eddc"
+  integrity sha512-QK0xZjDBPXJQi4KY12VPUDNX4DU7L+nG+etpZLXVyBU+vRD7UDhk6U/dFpqfwL3hVsdBsSLmMmV1Cvm3L5/FXw==
+  dependencies:
+    troika-core "^0.17.1"
+    troika-three-utils "^0.17.1"
+
+troika-animation@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/troika-animation/-/troika-animation-0.17.1.tgz#6b4599b645391811cd059689916a9e7c1d3a4281"
+  integrity sha512-9EIMQCa0HW1KR3ETtl+pgzGic58YND+gQsbt989HhClsqlkX2MUlRifbBVdNgBgEeXbKJ65IpGmtqBGpU5uRpA==
+
+troika-core@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/troika-core/-/troika-core-0.17.1.tgz#48c7198819275225041197a5ebef3959b68d54ec"
+  integrity sha512-01oYkXwyvLuYoLwkQ2ZrYRiuUITnhzu/pIlNCMotesBVJQUsIn0E+kWaf/lRiOm8+6EoVJ3AQPakbeddSSYxfg==
+  dependencies:
+    prop-types "^15.6.2"
+    troika-animation "^0.17.1"
+
+troika-three-utils@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/troika-three-utils/-/troika-three-utils-0.17.1.tgz#e5bd68208ceadb7c234cb9c2a9436eb8d16a9bb4"
+  integrity sha512-A46b6/1ZZu7qNnN3379oDqYQkMoOf0GF2Iz4nRfHPUQqDPOM37Uo3sCqPjvOksGBC3jBAjjSrHFESmYkD9Kkwg==
+
+troika-worker-utils@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/troika-worker-utils/-/troika-worker-utils-0.17.1.tgz#550980ae1364f6f140a0ee0fa3303535c42cb13e"
+  integrity sha512-1Bw3lQOuuyL9ugDaS1iq3TSsI6uKGY3781HCwx1uRy/ccQwbL+YwWulXjt4e8+Ap9zcau8PhrD4Mg7qynTxsKg==
 
 "true-case-path@^1.0.2":
   version "1.0.3"
