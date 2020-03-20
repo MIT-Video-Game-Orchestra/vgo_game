@@ -25,26 +25,26 @@ export class CubeControllerSystem extends System{
 
             let keyboardInputManager = new KeyboardInputManager();
             let cubeControllerComponent = entity.getComponent(CubeControllerComponent);
-            let impulseForce = 5;
+            let impulseForce = 40;
 
             keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.right, () => {
                 let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
-                movementComponent.velocity.x += impulseForce
+                movementComponent.velocity.x = impulseForce
             });
 
             keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.up, () => {
                 let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
-                movementComponent.velocity.y += impulseForce;
+                movementComponent.velocity.y = impulseForce;
             });
 
             keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.down, () => {
                 let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
-                movementComponent.velocity.y -= impulseForce;
+                // movementComponent.velocity.y = impulseForce;
             });
 
             keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.left, () => {
                 let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
-                movementComponent.velocity.x -= impulseForce;
+                movementComponent.velocity.x = -impulseForce;
             });
         });
     }

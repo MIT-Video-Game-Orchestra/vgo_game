@@ -21,6 +21,9 @@ import {BasicPhysicsMovementComponent} from "../components/BasicPhysicsMovementC
 import {BasicPhysicsSystem} from "../systems/BasicPhysicsSystem";
 import {OrbitComponent} from "../components/OrbitComponent";
 import {OrbitSystem} from "../systems/OrbitSystem";
+import {PlatformComponent} from "../components/PlatformComponent";
+import {BoundingBoxComponent} from "../components/BoundingBoxComponent";
+import {CubeCollsiionSystem} from "../systems/CubeCollsiionSystem";
 
 export function CubeWorld() {
     var world = new World();
@@ -32,6 +35,7 @@ export function CubeWorld() {
         .registerSystem(TransformSystem)
         .registerSystem(BasicPhysicsSystem)
         .registerSystem(OrbitSystem)
+        .registerSystem(CubeCollsiionSystem)
         .registerSystem(WebGLRendererSystem)
     world
         .registerComponent(RendererComponent)
@@ -47,6 +51,8 @@ export function CubeWorld() {
         .registerComponent(ParentComponent)
         .registerComponent(BasicPhysicsMovementComponent)
         .registerComponent(OrbitComponent)
+        .registerComponent(PlatformComponent)
+        .registerComponent(BoundingBoxComponent)
 
 
     let renderer = world.createEntity()
@@ -71,6 +77,7 @@ export function CubeWorld() {
             camera
         });
 
+    let FRICTION = 10;
     let p1 = world.createEntity()
         .addComponent(Object3DComponent)
         .addComponent(MaterialComponent, {
@@ -91,9 +98,13 @@ export function CubeWorld() {
                 right: 'ArrowRight',
             }
         })
+        .addComponent(BoundingBoxComponent, {
+            width: 10,
+            height: 10,
+        })
         .addComponent(BasicPhysicsMovementComponent, {
-            position: new Vector3(20, 50, -10),
-            friction: 1.2
+            position: new Vector3(80, 50, -10),
+            friction: FRICTION
         })
     ;
 
@@ -117,10 +128,55 @@ export function CubeWorld() {
                 right: 'd',
             }
         })
-        .addComponent(BasicPhysicsMovementComponent, {
-            position: new Vector3(80, 50, -10),
-            friction: 1.2
+        .addComponent(BoundingBoxComponent, {
+            width: 10,
+            height: 10,
         })
+        .addComponent(BasicPhysicsMovementComponent, {
+            position: new Vector3(20, 50, -10),
+            friction: FRICTION
+        })
+
+
+    let floor = world.createEntity()
+        .addComponent(Object3DComponent)
+        .addComponent(MaterialComponent, {
+            color: new Color(0.9, 0.9, 0.9)
+        })
+        .addComponent(GeometryComponent)
+        .addComponent(TransformComponent, {
+            position: new Vector3(0, 0, -10),
+            scale: new Vector3(1000, 10, 10)
+        })
+        .addComponent(BoundingBoxComponent, {
+            width: 1000,
+            height: 10,
+        })
+        .addComponent(ParentComponent, {
+            parentObject: scene
+        })
+        .addComponent(PlatformComponent)
+
+
+    let platform1 = world.createEntity()
+        .addComponent(Object3DComponent)
+        .addComponent(MaterialComponent, {
+            color: new Color(0.9, 0.9, 0.9)
+        })
+        .addComponent(GeometryComponent)
+        .addComponent(TransformComponent, {
+            position: new Vector3(100, 60, -10),
+            scale: new Vector3(40, 10, 10)
+        })
+        .addComponent(BoundingBoxComponent, {
+            width: 40,
+            height: 10,
+        })
+        .addComponent(ParentComponent, {
+            parentObject: scene
+        })
+        .addComponent(PlatformComponent)
+
 
 
     for(let i = 0; i < 300; i++){
