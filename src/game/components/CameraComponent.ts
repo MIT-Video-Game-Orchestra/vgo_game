@@ -1,12 +1,21 @@
 import {Component} from "ecsy";
 
 export class CameraComponent extends Component{
-    fov: number;
+
+    handleResize: boolean = true;
+    isOrthographic: boolean = false;
     aspect: number;
+
+    //perspective fields
+    fov: number;
     near: number;
     far: number;
     layers: number;
-    handleResize: boolean = true;
+
+    //ortho fields
+    worldHeight: number;
+
+
     reset(){
         this.fov = 45;
         this.aspect = 1;

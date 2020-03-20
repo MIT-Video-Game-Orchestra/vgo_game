@@ -8,8 +8,6 @@ import {
     Mesh,
     MeshBasicMaterial,
     Object3D,
-    PerspectiveCamera,
-    Scene,
     SphereBufferGeometry, WebGLRenderer
 } from "three";
 import {ParentComponent} from "../components/ParentComponent";

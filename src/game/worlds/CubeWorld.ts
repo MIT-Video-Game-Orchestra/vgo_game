@@ -52,15 +52,13 @@ export function CubeWorld() {
     let renderer = world.createEntity()
         .addComponent(RendererComponent)
 
+    const WORLD_HEIGHT = 100;
+
     let camera = world.createEntity()
         .addComponent(CameraComponent, {
-            fov: 75,
             aspect: window.innerWidth / window.innerHeight,
-            near: 0.1,
-            far: 1000
-        })
-        .addComponent(TransformComponent, {
-            position: new Vector3(0, 0, 10)
+            worldHeight: WORLD_HEIGHT,
+            isOrthographic: true
         })
         .addComponent(ActiveComponent);
 
@@ -76,10 +74,11 @@ export function CubeWorld() {
     let p1 = world.createEntity()
         .addComponent(Object3DComponent)
         .addComponent(MaterialComponent, {
-            color: new Color(0.8, 0.6, 0.1)
+            color: new Color(0.8, 0.9, 0.1)
         })
         .addComponent(GeometryComponent)
         .addComponent(TransformComponent, {
+            scale: new Vector3(10, 10, 10)
         })
         .addComponent(ParentComponent, {
             parentObject: scene
@@ -93,7 +92,7 @@ export function CubeWorld() {
             }
         })
         .addComponent(BasicPhysicsMovementComponent, {
-            position: new Vector3(2, 0, 0),
+            position: new Vector3(20, 50, -10),
             friction: 1.2
         })
     ;
@@ -101,10 +100,11 @@ export function CubeWorld() {
     let p2 = world.createEntity()
         .addComponent(Object3DComponent)
         .addComponent(MaterialComponent, {
-            color: new Color(0.2, 0.6, 0.6)
+            color: new Color(0.1, 0.9, 0.2)
         })
         .addComponent(GeometryComponent)
         .addComponent(TransformComponent, {
+            scale: new Vector3(10, 10, 10)
         })
         .addComponent(ParentComponent, {
             parentObject: scene
@@ -118,7 +118,7 @@ export function CubeWorld() {
             }
         })
         .addComponent(BasicPhysicsMovementComponent, {
-            position: new Vector3(-2, 0, 0),
+            position: new Vector3(80, 50, -10),
             friction: 1.2
         })
 
@@ -133,8 +133,8 @@ export function CubeWorld() {
                 geometry: Geometries.SPHERE
             })
             .addComponent(TransformComponent, {
-                position: new Vector3((Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20),
-                scale: new Vector3(0.1, 0.1, 0.1)
+                position: new Vector3((Math.random()) * 100 + 50, (Math.random()) * 100, Math.random() * 20 + -50),
+                scale: new Vector3(2, 2, 2)
             })
             .addComponent(ParentComponent, {
                 parentObject: scene
