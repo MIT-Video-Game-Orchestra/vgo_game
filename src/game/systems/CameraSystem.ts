@@ -2,6 +2,7 @@ import {Camera, PerspectiveCamera, Scene} from "three";
 import {Not, System} from "ecsy";
 import {SceneComponent} from "../components/SceneComponent";
 import {CameraComponent} from "../components/CameraComponent";
+import {SceneGraphObject3DComponent} from "./SceneGraphSystem";
 
 export class SceneGraphCameraComponent{
     camera: PerspectiveCamera;
@@ -34,11 +35,8 @@ export class CameraSystem extends System{
         this.queries.uninitializedScenes.added.forEach(entity => {
             let cameraComponent = entity.getComponent(CameraComponent);
             let camera = new PerspectiveCamera(cameraComponent.fov, cameraComponent.aspect, cameraComponent.near, cameraComponent.far);
-
-            //hack
-            camera.position.z = 10;
-
             entity.addComponent(SceneGraphCameraComponent, {camera: camera})
+            entity.addComponent(SceneGraphObject3DComponent, {object3d: camera})
         });
 
 

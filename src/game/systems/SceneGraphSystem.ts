@@ -55,11 +55,6 @@ export class SceneGraphSystem extends System{
             }
 
             let object3d = new Mesh(geometry, material);
-
-            object3d.position.copy(transformComponent.position);
-            object3d.rotation.copy(transformComponent.rotation);
-            object3d.scale.copy(transformComponent.scale);
-
             entity.addComponent(SceneGraphObject3DComponent, {
                 object3d: object3d
             });

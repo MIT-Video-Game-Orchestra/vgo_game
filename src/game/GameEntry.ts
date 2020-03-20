@@ -25,6 +25,7 @@ import {SceneSystem} from "./systems/SceneSystem";
 import {SceneComponent} from "./components/SceneComponent";
 import {ActiveComponent} from "./components/ActiveComponent";
 import {ParentComponent} from "./components/ParentComponent";
+import {TransformSystem} from "./systems/TransformSystem";
 
 export class GameEntry {
     _disposed = false;
@@ -40,6 +41,7 @@ export class GameEntry {
             .registerSystem(CameraSystem)
             .registerSystem(SceneSystem)
             .registerSystem(SceneGraphSystem)
+            .registerSystem(TransformSystem)
             .registerSystem(WebGLRendererSystem)
         world
             .registerComponent(RendererComponent)
@@ -64,6 +66,9 @@ export class GameEntry {
                 aspect: window.innerWidth / window.innerHeight,
                 near: 0.1,
                 far: 1000
+            })
+            .addComponent(TransformComponent, {
+                position: new Vector3(0, 0, 10)
             })
             .addComponent(ActiveComponent);
 
