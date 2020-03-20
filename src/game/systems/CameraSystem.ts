@@ -62,7 +62,7 @@ export class CameraSystem extends System{
                 }
             }
             else if(camera3d instanceof OrthographicCamera){
-                camera3d.right = camera3d.bottom * component.aspect;
+                camera3d.right = camera3d.top * component.aspect;
                 camera3d.updateProjectionMatrix();
             }
             // @todo Do it for the rest of the values
