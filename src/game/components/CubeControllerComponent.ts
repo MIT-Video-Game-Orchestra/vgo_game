@@ -1,5 +1,6 @@
 import {Component} from "ecsy";
 import {Geometries} from "./GeometryComponent";
+import {KeyboardInputManager} from "../input/KeyboardInputManager";
 
 export interface Keybindings {
     down: string,
@@ -9,6 +10,7 @@ export interface Keybindings {
 }
 
 export class CubeControllerComponent extends Component{
+
     keybindings: Keybindings = {
         down: 's',
         left: 'a',

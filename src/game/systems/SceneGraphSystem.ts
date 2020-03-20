@@ -27,10 +27,6 @@ export class SceneGraphObject3DComponent extends Component{
 
 
 export class SceneGraphSystem extends System{
-
-    static CANVAS: HTMLCanvasElement;
-
-
     execute(delta: number, time: number): void {
         this.queries.uninstantiatedMeshes.added.forEach(entity => {
             let object3dComponent = entity.getComponent(Object3DComponent);

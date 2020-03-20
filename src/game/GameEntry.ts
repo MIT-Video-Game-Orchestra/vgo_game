@@ -26,90 +26,17 @@ import {SceneComponent} from "./components/SceneComponent";
 import {ActiveComponent} from "./components/ActiveComponent";
 import {ParentComponent} from "./components/ParentComponent";
 import {TransformSystem} from "./systems/TransformSystem";
+import {CubeControllerSystem} from "./systems/CubeControllerSystem";
 
 export class GameEntry {
     _disposed = false;
-    init(canvas: HTMLCanvasElement){
+    init(canvas: HTMLCanvasElement, worldFunction: () => World){
 
         console.log("INIT GAME");
         //hack, fix later
-        SceneGraphSystem.CANVAS = canvas;
         WebGLRendererSystem.CANVAS = canvas;
 
-        var world = new World();
-        world
-            .registerSystem(CameraSystem)
-            .registerSystem(SceneSystem)
-            .registerSystem(SceneGraphSystem)
-            .registerSystem(TransformSystem)
-            .registerSystem(WebGLRendererSystem)
-        world
-            .registerComponent(RendererComponent)
-            .registerComponent(WebGLRendererContextComponent)
-            .registerComponent(RenderPassComponent)
-            .registerComponent(SceneGraphObject3DComponent)
-            .registerComponent(Object3DComponent)
-            .registerComponent(MaterialComponent)
-            .registerComponent(GeometryComponent)
-            .registerComponent(TransformComponent)
-            .registerComponent(CameraComponent)
-            .registerComponent(CubeControllerComponent)
-            .registerComponent(ParentComponent)
-
-
-        let renderer = world.createEntity()
-            .addComponent(RendererComponent)
-
-        let camera = world.createEntity()
-            .addComponent(CameraComponent, {
-                fov: 75,
-                aspect: window.innerWidth / window.innerHeight,
-                near: 0.1,
-                far: 1000
-            })
-            .addComponent(TransformComponent, {
-                position: new Vector3(0, 0, 10)
-            })
-            .addComponent(ActiveComponent);
-
-        let scene = world.createEntity()
-            .addComponent(SceneComponent)
-
-        let renderPass = world.createEntity()
-            .addComponent(RenderPassComponent, {
-                scene,
-                camera
-            });
-
-        let p1 = world.createEntity()
-            .addComponent(Object3DComponent)
-            .addComponent(MaterialComponent, {
-                color: new Color(0.8, 0.6, 0.1)
-            })
-            .addComponent(GeometryComponent)
-            .addComponent(TransformComponent, {
-                position: new Vector3(2, 0, 0)
-            })
-            .addComponent(ParentComponent, {
-                parentObject: scene
-            });
-
-        let p2 = world.createEntity()
-            .addComponent(Object3DComponent)
-            .addComponent(MaterialComponent, {
-                color: new Color(0.2, 0.6, 0.6)
-            })
-            .addComponent(GeometryComponent)
-            .addComponent(TransformComponent, {
-                position: new Vector3(-2, 0, 0)
-            })
-            .addComponent(ParentComponent, {
-                parentObject: scene
-            });
-
-        // p2.getComponent(TransformComponent).position.set(0, 2, 0);
-
-
+        let world = worldFunction();
         let clock = new Clock();
 
         //setup main loop

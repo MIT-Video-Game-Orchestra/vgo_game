@@ -13,19 +13,15 @@ import {
     SphereBufferGeometry, WebGLRenderer
 } from "three";
 import {CubeControllerComponent} from "../components/CubeControllerComponent";
+import {KeyboardInputManager} from "../input/KeyboardInputManager";
 
 export class CubeControllerSystem extends System{
-
-
-
+    
+    private inputManager: KeyboardInputManager = new KeyboardInputManager();
 
     execute(delta: number, time: number): void {
 
         this.queries.controlled.added.forEach(entity => {
-
-
-
-
 
         });
     }

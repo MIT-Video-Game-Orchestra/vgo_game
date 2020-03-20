@@ -12,6 +12,8 @@ import {
     Link
 } from "react-router-dom";
 import {CharacterSelect} from "./CharacterSelect";
+import {CubeWorld} from "../game/worlds/CubeWorld";
+import {CustomExampleWorld} from "../game/worlds/CustomWorldExample";
 
 
 
@@ -23,8 +25,13 @@ class App extends React.Component<{}, undefined> {
                     <Route path={"/characterSelect"}>
                         <CharacterSelect/>
                     </Route>
+
+                    <Route path={"/customExampleWorld"}>
+                        <Game worldFunction={CustomExampleWorld}/>
+                    </Route>
+
                     <Route path={"/"}>
-                        <Game/>
+                        <Game worldFunction={CubeWorld}/>
                     </Route>
                 </Switch>
             </Router>

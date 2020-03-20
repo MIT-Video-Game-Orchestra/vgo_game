@@ -39,6 +39,7 @@ export class WebGLRendererSystem extends System {
   }
 
   execute() {
+
     let renderers = this.queries.renderers.results;
     renderers.forEach(rendererEntity => {
       let renderer = rendererEntity.getComponent(WebGLRendererContextComponent).value;
@@ -79,7 +80,6 @@ export class WebGLRendererSystem extends System {
 
       // renderer.shadowMap.enabled = component.shadowMap;
 
-      document.body.appendChild(renderer.domElement);
       entity.addComponent(WebGLRendererContextComponent, { value: renderer });
     });
 
