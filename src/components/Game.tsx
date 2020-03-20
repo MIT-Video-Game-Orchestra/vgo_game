@@ -16,13 +16,21 @@ export function Game(props: GameProps) {
     });
 
     useEffect(() => {
+
+        if(gameEntry){
+            gameEntry.dispose();
+        }
+
+        let newGameEntry = new GameEntry();
+
         let canvas = canvasRef.current;
-        gameEntry.init(canvas, props.worldFunction);
+        newGameEntry.init(canvas, props.worldFunction);
+        setGameEntry(newGameEntry);
 
         return () => { //onDestroy
             gameEntry.dispose();
         }
-    }, []); //runs on init only
+    }, [props.worldFunction]); //runs on init only
 
     return (
         <canvas ref={canvasRef} id="game-container" className="full-screen-game"/>
