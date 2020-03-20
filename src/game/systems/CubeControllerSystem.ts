@@ -18,12 +18,16 @@ export class CubeControllerSystem extends System{
 
 
 
-    objectIdMap = new Map<string, Object3D>();
 
     execute(delta: number, time: number): void {
 
+        this.queries.controlled.added.forEach(entity => {
 
 
+
+
+
+        });
     }
 
     static queries = {

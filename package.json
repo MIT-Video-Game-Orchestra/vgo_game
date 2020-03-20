@@ -66,6 +66,8 @@
   },
   "dependencies": {
     "ecsy": "^0.2.3",
+    "mousetrap": "^1.6.5",
+    "react-router-dom": "^5.1.2",
     "three": "^0.114.0"
   }
 }

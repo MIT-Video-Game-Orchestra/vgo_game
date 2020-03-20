@@ -14,4 +14,8 @@ module.exports = merge(commonConfig, {
   },
   devtool: 'source-map',
   plugins: [],
+
+  optimization: {
+      minimize: false //TODO: minimization breaks ECSY...
+  },
 });

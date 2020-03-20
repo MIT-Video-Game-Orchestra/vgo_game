@@ -5,10 +5,29 @@ const reactLogo = require("./../assets/img/react_logo.svg");
 import "./../assets/scss/App.scss";
 import {Game} from "./Game";
 
+import {
+    HashRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+import {CharacterSelect} from "./CharacterSelect";
+
+
+
 class App extends React.Component<{}, undefined> {
     public render() {
         return (
-            <Game/>
+            <Router>
+                <Switch>
+                    <Route path={"/characterSelect"}>
+                        <CharacterSelect/>
+                    </Route>
+                    <Route path={"/"}>
+                        <Game/>
+                    </Route>
+                </Switch>
+            </Router>
         );
     }
 }
