@@ -22,7 +22,9 @@ export class KeyboardInputManager {
     onKeyDown(e: KeyboardEvent){
         let f = this.keydowns.get(e.key);
         if(f){
-            f();
+            if(!e.repeat){
+                f();
+            }
         }
     }
 

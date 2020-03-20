@@ -17,6 +17,8 @@ import {ParentComponent} from "../components/ParentComponent";
 import {Color, Vector3} from "three";
 import {ActiveComponent} from "../components/ActiveComponent";
 import {SceneComponent} from "../components/SceneComponent";
+import {BasicPhysicsMovementComponent} from "../components/BasicPhysicsMovementComponent";
+import {BasicPhysicsSystem} from "../systems/BasicPhysicsSystem";
 
 export function CubeWorld() {
     var world = new World();
@@ -26,6 +28,7 @@ export function CubeWorld() {
         .registerSystem(SceneGraphSystem)
         .registerSystem(CubeControllerSystem)
         .registerSystem(TransformSystem)
+        .registerSystem(BasicPhysicsSystem)
         .registerSystem(WebGLRendererSystem)
     world
         .registerComponent(RendererComponent)
@@ -39,6 +42,7 @@ export function CubeWorld() {
         .registerComponent(CameraComponent)
         .registerComponent(CubeControllerComponent)
         .registerComponent(ParentComponent)
+        .registerComponent(BasicPhysicsMovementComponent)
 
 
     let renderer = world.createEntity()
@@ -72,7 +76,6 @@ export function CubeWorld() {
         })
         .addComponent(GeometryComponent)
         .addComponent(TransformComponent, {
-            position: new Vector3(2, 0, 0)
         })
         .addComponent(ParentComponent, {
             parentObject: scene
@@ -84,7 +87,10 @@ export function CubeWorld() {
                 up: 'ArrowUp',
                 right: 'ArrowRight',
             }
-
+        })
+        .addComponent(BasicPhysicsMovementComponent, {
+            position: new Vector3(2, 0, 0),
+            friction: 1.2
         })
     ;
 
@@ -95,7 +101,6 @@ export function CubeWorld() {
         })
         .addComponent(GeometryComponent)
         .addComponent(TransformComponent, {
-            position: new Vector3(-2, 0, 0)
         })
         .addComponent(ParentComponent, {
             parentObject: scene
@@ -108,8 +113,12 @@ export function CubeWorld() {
                 right: 'd',
             }
         })
+        .addComponent(BasicPhysicsMovementComponent, {
+            position: new Vector3(-2, 0, 0),
+            friction: 1.2
+        })
 
 
-    ;
+
     return world;
 }

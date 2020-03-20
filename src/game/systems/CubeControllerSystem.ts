@@ -14,10 +14,9 @@ import {
 } from "three";
 import {CubeControllerComponent} from "../components/CubeControllerComponent";
 import {KeyboardInputManager} from "../input/KeyboardInputManager";
+import {BasicPhysicsMovementComponent} from "../components/BasicPhysicsMovementComponent";
 
 export class CubeControllerSystem extends System{
-
-    private inputManager: KeyboardInputManager = new KeyboardInputManager();
 
     execute(delta: number, time: number): void {
 
@@ -25,38 +24,34 @@ export class CubeControllerSystem extends System{
 
 
             let keyboardInputManager = new KeyboardInputManager();
-
-
             let cubeControllerComponent = entity.getComponent(CubeControllerComponent);
-
-
-            let velocity = 0.04;
+            let impulseForce = 5;
 
             keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.right, () => {
-                let transformComponent = entity.getMutableComponent(TransformComponent);
-                transformComponent.position.x += delta * velocity;
+                let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
+                movementComponent.velocity.x += impulseForce
             });
 
             keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.up, () => {
-                let transformComponent = entity.getMutableComponent(TransformComponent);
-                transformComponent.position.y += delta * velocity;
+                let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
+                movementComponent.velocity.y += impulseForce;
             });
 
             keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.down, () => {
-                let transformComponent = entity.getMutableComponent(TransformComponent);
-                transformComponent.position.y -= delta * velocity;
+                let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
+                movementComponent.velocity.y -= impulseForce;
             });
 
             keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.left, () => {
-                let transformComponent = entity.getMutableComponent(TransformComponent);
-                transformComponent.position.x -= delta * velocity;
+                let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
+                movementComponent.velocity.x -= impulseForce;
             });
         });
     }
 
     static queries = {
         controlled: {
-            components: [CubeControllerComponent, TransformComponent],
+            components: [CubeControllerComponent, BasicPhysicsMovementComponent],
             listen: {
                 added: true,
                 removed: true,
