@@ -6,7 +6,7 @@ import {TransformComponent} from "../components/TransformComponent";
 import {BasicPhysicsMovementComponent} from "../components/BasicPhysicsMovementComponent";
 import {CollisionComponent} from "../components/CollisionComponent";
 
-export class CubeCollsiionSystem extends System{
+export class PlayerCollisionSystem extends System{
 
     execute(delta: number, time: number): void {
 

@@ -4,17 +4,21 @@ import {Geometries, GeometryComponent} from "../components/GeometryComponent";
 import {TransformComponent} from "../components/TransformComponent";
 import {MaterialComponent} from "../components/MaterialComponent";
 import {
-    BoxBufferGeometry,
+    BoxBufferGeometry, Color,
     Mesh,
     MeshBasicMaterial,
     Object3D,
     PerspectiveCamera,
     Scene,
-    SphereBufferGeometry, WebGLRenderer
+    SphereBufferGeometry, Vector3, WebGLRenderer
 } from "three";
 import {CubeControllerComponent} from "../components/CubeControllerComponent";
 import {KeyboardInputManager} from "../input/KeyboardInputManager";
 import {BasicPhysicsMovementComponent} from "../components/BasicPhysicsMovementComponent";
+import {ParentComponent} from "../components/ParentComponent";
+import {BoundingBoxComponent} from "../components/BoundingBoxComponent";
+import {CollisionComponent} from "../components/CollisionComponent";
+import {BulletComponent} from "../components/BulletComponent";
 
 export class CubeControllerSystem extends System{
 
@@ -37,9 +41,47 @@ export class CubeControllerSystem extends System{
                 movementComponent.velocity.y = impulseForce;
             });
 
-            keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.down, () => {
-                let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
-                // movementComponent.velocity.y = impulseForce;
+            keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.fire, () => {
+
+                console.log("CREATING ENTITY");
+
+                let parent = entity.getComponent(ParentComponent);
+                let transform = entity.getComponent(TransformComponent);
+
+                let bulletDirection = [
+                    [1, 1],
+                    [-1, 1],
+                ];
+
+                bulletDirection.forEach(([x, y]) => {
+                    this.world.createEntity()
+                        .addComponent(Object3DComponent)
+                        .addComponent(MaterialComponent, {
+                            color: new Color(0.9, 0.4, 0.4)
+                        })
+                        .addComponent(GeometryComponent)
+                        .addComponent(TransformComponent, {
+                            scale: new Vector3(2, 2, 2)
+                        })
+                        .addComponent(ParentComponent, {
+                            parentObject: parent.parentObject
+                        })
+                        .addComponent(BoundingBoxComponent, {
+                            width: 2,
+                            height: 2,
+                        })
+                        .addComponent(BulletComponent, {
+                            damage: 1,
+                            lifeTime: 2,
+                            timeActive: 0
+                        })
+                        .addComponent(BasicPhysicsMovementComponent, {
+                            position: new Vector3(transform.position.x + 10*x, transform.position.y + 10*y, transform.position.z),
+                            velocity: new Vector3(x * 100, y * 100 , 0),
+                            friction: 0.3
+                        })
+                        .addComponent(CollisionComponent)
+                })
             });
 
             keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.left, () => {
@@ -51,7 +93,7 @@ export class CubeControllerSystem extends System{
 
     static queries = {
         controlled: {
-            components: [CubeControllerComponent, BasicPhysicsMovementComponent],
+            components: [CubeControllerComponent, TransformComponent, BasicPhysicsMovementComponent, ParentComponent],
             listen: {
                 added: true,
                 removed: true,

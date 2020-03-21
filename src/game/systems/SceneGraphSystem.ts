@@ -55,7 +55,11 @@ export class SceneGraphSystem extends System{
         });
 
         this.queries.meshes.removed.forEach(entity => {
-            let object3dComponent = entity.getComponent(SceneGraphObject3DComponent).object3d;
+            let component = entity.getRemovedComponent(SceneGraphObject3DComponent);
+            let object3d = component.object3d;
+            if(object3d.parent){
+                object3d.parent.remove(object3d);
+            }
         });
 
 
@@ -72,7 +76,7 @@ export class SceneGraphSystem extends System{
 
     static queries = {
         uninstantiatedMeshes: {
-            components: [Object3DComponent, Not(SceneGraphObject3DComponent), GeometryComponent, MaterialComponent, TransformComponent],
+            components: [Object3DComponent, GeometryComponent, MaterialComponent, TransformComponent],
             listen: {
                 added: true,
                 removed: true,

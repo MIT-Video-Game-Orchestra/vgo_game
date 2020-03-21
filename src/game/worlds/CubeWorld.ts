@@ -23,17 +23,20 @@ import {OrbitComponent} from "../components/OrbitComponent";
 import {OrbitSystem} from "../systems/OrbitSystem";
 import {PlatformComponent} from "../components/PlatformComponent";
 import {BoundingBoxComponent} from "../components/BoundingBoxComponent";
-import {CubeCollsiionSystem} from "../systems/CubeCollsiionSystem";
+import {PlayerCollisionSystem} from "../systems/PlayerCollisionSystem";
 import {BoxCollisionCleanupSystem} from "../systems/BoxCollisionCleanupSystem";
 import {HPComponent} from "../components/HPComponent";
 import {CollisionComponent} from "../components/CollisionComponent";
 import {BulletComponent} from "../components/BulletComponent";
 import {BoxCollisionSystem} from "../systems/BoxCollisionSystem";
 import {BulletDamageSystem} from "../systems/BulletDamageSystem";
+import {BulletCollisionSystem} from "../systems/BulletCollisionSystem";
+import {BulletSystem} from "../systems/BulletSystem";
 
 export function CubeWorld() {
     var world = new World();
     world
+        .registerSystem(BulletSystem)
         .registerSystem(CameraSystem)
         .registerSystem(SceneSystem)
         .registerSystem(SceneGraphSystem)
@@ -42,7 +45,8 @@ export function CubeWorld() {
         .registerSystem(TransformSystem)
         .registerSystem(OrbitSystem)
         .registerSystem(BoxCollisionSystem)
-        .registerSystem(CubeCollsiionSystem)
+        .registerSystem(PlayerCollisionSystem)
+        .registerSystem(BulletCollisionSystem)
         .registerSystem(BulletDamageSystem)
         .registerSystem(WebGLRendererSystem)
         .registerSystem(BoxCollisionCleanupSystem)
@@ -104,7 +108,7 @@ export function CubeWorld() {
         })
         .addComponent(CubeControllerComponent, {
             keybindings: {
-                down: 'ArrowDown',
+                fire: 'ArrowDown',
                 left: 'ArrowLeft',
                 up: 'ArrowUp',
                 right: 'ArrowRight',
@@ -135,7 +139,7 @@ export function CubeWorld() {
         })
         .addComponent(CubeControllerComponent, {
             keybindings: {
-                down: 's',
+                fire: 's',
                 left: 'a',
                 up: 'w',
                 right: 'd',
