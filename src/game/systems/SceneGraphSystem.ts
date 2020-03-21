@@ -35,7 +35,9 @@ export class SceneGraphSystem extends System{
             let transformComponent = entity.getComponent(TransformComponent);
             //TODO: share materials/geometry/etc
             let material = new MeshBasicMaterial({
-                color: materialComponent.color
+                color: materialComponent.color,
+                opacity: materialComponent.opacity,
+                transparent: true
             });
             //
 
@@ -70,6 +72,12 @@ export class SceneGraphSystem extends System{
 
            parentObject.object3d.add(obj3d);
         });
+        this.queries.materialChanged.changed.forEach(entity => {
+            let obj3d = <Mesh> entity.getComponent(SceneGraphObject3DComponent).object3d;
+            let mat = <MeshBasicMaterial> obj3d.material;
+            mat.color.copy(entity.getComponent(MaterialComponent).color);
+            mat.opacity = entity.getComponent(MaterialComponent).opacity;
+        })
 
     }
 
@@ -88,6 +96,12 @@ export class SceneGraphSystem extends System{
             listen: {
                 added: true,
                 removed: true
+            }
+        },
+        materialChanged: {
+            components: [SceneGraphObject3DComponent, MaterialComponent],
+            listen: {
+                changed: [MaterialComponent],
             }
         },
         meshes: {

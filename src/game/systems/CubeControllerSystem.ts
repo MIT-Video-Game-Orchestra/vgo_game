@@ -22,12 +22,17 @@ import {BulletComponent} from "../components/BulletComponent";
 
 export class CubeControllerSystem extends System{
 
+
+    _inputManagerMap = new Map<Entity, KeyboardInputManager>();
+
+
     execute(delta: number, time: number): void {
 
         this.queries.controlled.added.forEach(entity => {
 
-
             let keyboardInputManager = new KeyboardInputManager();
+            this._inputManagerMap.set(entity, keyboardInputManager);
+
             let cubeControllerComponent = entity.getComponent(CubeControllerComponent);
             let impulseForce = 40;
 
@@ -71,7 +76,7 @@ export class CubeControllerSystem extends System{
                             height: 2,
                         })
                         .addComponent(BulletComponent, {
-                            damage: 1,
+                            damage: 10,
                             lifeTime: 2,
                             timeActive: 0
                         })
@@ -88,6 +93,12 @@ export class CubeControllerSystem extends System{
                 let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
                 movementComponent.velocity.x = -impulseForce;
             });
+        });
+
+        this.queries.controlled.removed.forEach((entity) => {
+            let inputManager = this._inputManagerMap.get(entity);
+            inputManager.destroy();
+            this._inputManagerMap.delete(entity);
         });
     }
 

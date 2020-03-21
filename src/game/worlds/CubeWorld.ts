@@ -32,6 +32,7 @@ import {BoxCollisionSystem} from "../systems/BoxCollisionSystem";
 import {BulletDamageSystem} from "../systems/BulletDamageSystem";
 import {BulletCollisionSystem} from "../systems/BulletCollisionSystem";
 import {BulletSystem} from "../systems/BulletSystem";
+import {PlayerHealthSystem} from "../systems/PlayerHealthSystem";
 
 export function CubeWorld() {
     var world = new World();
@@ -39,7 +40,6 @@ export function CubeWorld() {
         .registerSystem(BulletSystem)
         .registerSystem(CameraSystem)
         .registerSystem(SceneSystem)
-        .registerSystem(SceneGraphSystem)
         .registerSystem(CubeControllerSystem)
         .registerSystem(BasicPhysicsSystem)
         .registerSystem(TransformSystem)
@@ -48,6 +48,8 @@ export function CubeWorld() {
         .registerSystem(PlayerCollisionSystem)
         .registerSystem(BulletCollisionSystem)
         .registerSystem(BulletDamageSystem)
+        .registerSystem(PlayerHealthSystem)
+        .registerSystem(SceneGraphSystem)
         .registerSystem(WebGLRendererSystem)
         .registerSystem(BoxCollisionCleanupSystem)
     world
@@ -123,6 +125,10 @@ export function CubeWorld() {
             friction: FRICTION
         })
         .addComponent(CollisionComponent)
+        .addComponent(HPComponent, {
+            maxHP: 100,
+            currentHP: 100
+        })
     ;
 
     let p2 = world.createEntity()
@@ -154,6 +160,10 @@ export function CubeWorld() {
             friction: FRICTION
         })
         .addComponent(CollisionComponent)
+        .addComponent(HPComponent, {
+            maxHP: 100,
+            currentHP: 100
+        });
 
 
     let floor = world.createEntity()
@@ -201,7 +211,8 @@ export function CubeWorld() {
         let sparkle = world.createEntity()
             .addComponent(Object3DComponent)
             .addComponent(MaterialComponent, {
-                color: new Color(Math.random(), 0.6, 0.6)
+                color: new Color(Math.random(), 0.6, 0.6),
+                opacity: 0.3
             })
             .addComponent(GeometryComponent,{
                 geometry: Geometries.SPHERE
