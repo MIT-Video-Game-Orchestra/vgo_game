@@ -24,6 +24,12 @@ import {OrbitSystem} from "../systems/OrbitSystem";
 import {PlatformComponent} from "../components/PlatformComponent";
 import {BoundingBoxComponent} from "../components/BoundingBoxComponent";
 import {CubeCollsiionSystem} from "../systems/CubeCollsiionSystem";
+import {BoxCollisionCleanupSystem} from "../systems/BoxCollisionCleanupSystem";
+import {HPComponent} from "../components/HPComponent";
+import {CollisionComponent} from "../components/CollisionComponent";
+import {BulletComponent} from "../components/BulletComponent";
+import {BoxCollisionSystem} from "../systems/BoxCollisionSystem";
+import {BulletDamageSystem} from "../systems/BulletDamageSystem";
 
 export function CubeWorld() {
     var world = new World();
@@ -32,11 +38,14 @@ export function CubeWorld() {
         .registerSystem(SceneSystem)
         .registerSystem(SceneGraphSystem)
         .registerSystem(CubeControllerSystem)
-        .registerSystem(TransformSystem)
         .registerSystem(BasicPhysicsSystem)
+        .registerSystem(TransformSystem)
         .registerSystem(OrbitSystem)
+        .registerSystem(BoxCollisionSystem)
         .registerSystem(CubeCollsiionSystem)
+        .registerSystem(BulletDamageSystem)
         .registerSystem(WebGLRendererSystem)
+        .registerSystem(BoxCollisionCleanupSystem)
     world
         .registerComponent(RendererComponent)
         .registerComponent(WebGLRendererContextComponent)
@@ -53,6 +62,9 @@ export function CubeWorld() {
         .registerComponent(OrbitComponent)
         .registerComponent(PlatformComponent)
         .registerComponent(BoundingBoxComponent)
+        .registerComponent(HPComponent)
+        .registerComponent(CollisionComponent)
+        .registerComponent(BulletComponent)
 
 
     let renderer = world.createEntity()
@@ -106,6 +118,7 @@ export function CubeWorld() {
             position: new Vector3(80, 50, -10),
             friction: FRICTION
         })
+        .addComponent(CollisionComponent)
     ;
 
     let p2 = world.createEntity()
@@ -136,6 +149,7 @@ export function CubeWorld() {
             position: new Vector3(20, 50, -10),
             friction: FRICTION
         })
+        .addComponent(CollisionComponent)
 
 
     let floor = world.createEntity()
