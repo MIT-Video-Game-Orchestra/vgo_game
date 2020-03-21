@@ -27,6 +27,15 @@ export class SceneGraphObject3DComponent extends Component{
 export class SceneGraphSystem extends System{
     execute(delta: number, time: number): void {
         this.queries.uninstantiatedMeshes.added.forEach(entity => {
+
+
+            //TODO: BUG sometimes entities are not alive, should that happen?
+            if(!entity.alive){
+                console.warn("WHY IS THIS HAPPENING", entity);
+                return;
+            }
+
+
             let object3dComponent = entity.getComponent(Object3DComponent);
             let id = object3dComponent.id;
 
