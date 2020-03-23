@@ -30,6 +30,7 @@ export class SceneGraphSystem extends System{
 
 
             //TODO: BUG sometimes entities are not alive, should that happen?
+            //@ts-ignore
             if(!entity.alive){
                 console.warn("WHY IS THIS HAPPENING", entity);
                 return;
