@@ -14,7 +14,7 @@ import {
 import {CharacterSelect} from "./CharacterSelect";
 import {CubeWorld} from "../game/worlds/CubeWorld";
 import {CustomExampleWorld} from "../game/worlds/CustomWorldExample";
-
+import {HitboxEditor} from "./HitboxEditor";
 
 
 class App extends React.Component<{}, undefined> {
@@ -25,11 +25,12 @@ class App extends React.Component<{}, undefined> {
                     <Route path={"/characterSelect"}>
                         <CharacterSelect/>
                     </Route>
-
+                    <Route path={"/HitboxEditor"}>
+                        <HitboxEditor/>
+                    </Route>
                     <Route path={"/customExampleWorld"}>
                         <Game worldFunction={CustomExampleWorld}/>
                     </Route>
-
                     <Route path={"/"}>
                         <Game worldFunction={CubeWorld}/>
                     </Route>
