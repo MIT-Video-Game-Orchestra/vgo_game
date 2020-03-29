@@ -2,10 +2,13 @@ import {Simulate} from "react-dom/test-utils";
 import keyDown = Simulate.keyDown;
 
 export class KeyboardInputManager {
-
+    static pressedKeys: Set<string> = new Set();
     keydowns: Map<string, () => any> = new Map();
     keyups: Map<string, () => any> = new Map();
 
+    static isKeyPressed(key: string){
+        return this.pressedKeys.has(key);
+    }
 
     private _keydownCallback = (e) => {
         this.onKeyDown(e);
@@ -44,8 +47,12 @@ export class KeyboardInputManager {
 
     destroy(){
         document.removeEventListener('keydown', this._keydownCallback);
-        document.removeEventListener('kyup', this._keyupCallback);
-
+        document.removeEventListener('keyup', this._keyupCallback);
     }
 
 }
+
+document.addEventListener('keydown', (e) => {if(!e.repeat){
+    KeyboardInputManager.pressedKeys.add(e.key);}
+});
+document.addEventListener('keyup', (e) => KeyboardInputManager.pressedKeys.delete(e.key));
