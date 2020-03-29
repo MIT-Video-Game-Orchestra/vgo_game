@@ -36,11 +36,6 @@ export class CubeControllerSystem extends System{
             let cubeControllerComponent = entity.getComponent(CubeControllerComponent);
             let impulseForce = 40;
 
-            keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.right, () => {
-                let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
-                movementComponent.velocity.x = impulseForce
-            });
-
             keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.up, () => {
                 let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
                 movementComponent.velocity.y = impulseForce;
@@ -88,17 +83,27 @@ export class CubeControllerSystem extends System{
                         .addComponent(CollisionComponent)
                 })
             });
-
-            keyboardInputManager.registerKeyDown(cubeControllerComponent.keybindings.left, () => {
-                let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
-                movementComponent.velocity.x = -impulseForce;
-            });
         });
 
-        this.queries.controlled.removed.forEach((entity) => {
+        this.queries.controlled.removed.forEach(entity => {
             let inputManager = this._inputManagerMap.get(entity);
             inputManager.destroy();
             this._inputManagerMap.delete(entity);
+        });
+
+        //Left/right movement
+        this.queries.controlled.results.forEach(entity => {
+            let cubeControllerComponent = entity.getComponent(CubeControllerComponent);
+            let impulseForce = 40;
+
+            if(KeyboardInputManager.isKeyPressed(cubeControllerComponent.keybindings.left)) {
+                let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
+                movementComponent.velocity.x = -impulseForce;
+            }
+            if(KeyboardInputManager.isKeyPressed(cubeControllerComponent.keybindings.right)) {
+                let movementComponent = entity.getMutableComponent(BasicPhysicsMovementComponent);
+                movementComponent.velocity.x = impulseForce;
+            };
         });
     }
 
@@ -111,5 +116,4 @@ export class CubeControllerSystem extends System{
             }
         },
     }
-
 }
