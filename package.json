@@ -70,6 +70,6 @@
     "ecsy-three": "https://github.com/MIT-Video-Game-Orchestra/ecsy-three.git",
     "mousetrap": "^1.6.5",
     "react-router-dom": "^5.1.2",
-    "three": "^0.114.0"
+    "three": "^0.137.0"
   }
 }
